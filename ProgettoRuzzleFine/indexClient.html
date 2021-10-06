@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client</title>
+</head>
+
+<body>
+    <input type="text" id="nomeUtente">
+    <input type="button" value="ACCEDI" onclick="accedi()">
+
+
+    <script>
+        let clientID = null;
+        let ws = new WebSocket("ws://localhost:3002");
+        let nomeUtente = null;
+
+        ws.onmessage = message => {
+            const response = JSON.parse(message.data);
+            if (response.method === "connect") {
+                clientID = response.clientID;
+                console.log("CLIENT ID: " + clientID + "CONNECTED");
+
+            }
+            if (response.method === "go") {
+                //start della partita
+                console.log("Partita iniziata!");
+
+
+
+            }
+
+        }
+
+        function accedi() {
+            nomeUtente = document.getElementById("nomeUtente").value;
+            const payLoad = {
+                "method": "accept",
+                "type": "client",
+                "clientID": clientID,
+                "nome": nomeUtente
+            }
+            ws.send(JSON.stringify(payLoad));
+        }
+
+
+
+
+
+    </script>
+
+</body>
+
+</html>
