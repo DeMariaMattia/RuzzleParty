@@ -7,12 +7,14 @@ const httpServer = http.createServer();
 
 
 const clients = [];
+const contatore = 0;
 
 consoleServer.get("/", (req, res) => res.sendFile(__dirname + "/indexServer.html"));
 consoleServer.listen(3000, () => console.log("server 3000"));
 
 app.get("/", (req, res) => res.sendFile(__dirname + "/indexClient.html"));
 app.listen(3001, () => console.log("client 3001"));
+
 httpServer.listen(3002, () => console.log("listening.. on 3002 (socket)"));
 
 
@@ -50,17 +52,18 @@ wsServer.on("request", request => {
                     "connection": connection,
                     "type": "client",
                     "clientID": result.clientID,
-                    "nomeUtente": result.nome
+                    "nomeUtente": result.nome,
+                    "contatore": contatore
                 }
                 console.log("client: " + clientID);
                 clients.push(saveClient);
                 //invia al server il nome dell'utente che ha fatto l'accesso
-                
+                const nometmp = result.nome;
                 for (let i = 0; i < clients.length; i++) {
                     if (clients[i].type === "server") {
                         const payLoad = {
                             "method": "addUtente",
-                            "nomeUtente": result.nome 
+                            "nomeUtente": nometmp
                         }
                         clients[i].connection.send(JSON.stringify(payLoad));
                     }
@@ -86,6 +89,14 @@ wsServer.on("request", request => {
 
             }
 
+        }
+        if(result.method === "incPunti"){
+            //inserisce in base a chi gli manda l'id i punti della partita
+            for (let i = 0; i < clients.length; i++) {
+                if(result.clientID === clients[i].clientID){
+                    clients[i].contatore = clients[i].contatore + result.punto;
+                }
+            }
         }
 
 

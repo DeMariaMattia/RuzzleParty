@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 
 <head>
     <meta charset="UTF-8">
@@ -11,12 +11,14 @@
 <body>
     <input type="text" id="nomeUtente">
     <input type="button" value="ACCEDI" onclick="accedi()">
+    <input type="button" value="punto++" onclick="incrementaPunti()">
 
 
     <script>
         let clientID = null;
-        let ws = new WebSocket("ws://localhost:3002");
+        let ws = new WebSocket("ws://172.22.194.128:3002");                 //impostare ogni volta indirizzo ip dispostivo server 
         let nomeUtente = null;
+        let contatorePunti = 0;
 
         ws.onmessage = message => {
             const response = JSON.parse(message.data);
@@ -28,9 +30,6 @@
             if (response.method === "go") {
                 //start della partita
                 console.log("Partita iniziata!");
-
-
-
             }
 
         }
@@ -42,6 +41,15 @@
                 "type": "client",
                 "clientID": clientID,
                 "nome": nomeUtente
+            }
+            ws.send(JSON.stringify(payLoad));
+        }
+
+        function incrementaPunti(){
+            const payLoad = {
+                "method": "incPunti",
+                "clientID": clientID,
+                "punto": contatorePunti
             }
             ws.send(JSON.stringify(payLoad));
         }

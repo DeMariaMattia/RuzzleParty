@@ -1,98 +1,223 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ConsoleServer</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
     <style type="text/css">
-        a {
-            text-decoration: none;
-            outline: none;
-            display: inline-block;
-            padding: 20px 30px;
-            margin: 10px 20px;
-            position: relative;
-            color: white;
-            border: 1px solid rgba(255, 255, 255, .4);
-            background: none;
-            font-weight: 300;
-            font-family: 'Montserrat', sans-serif;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Bebas Neue', cursive;
         }
 
-        a:before,
-        a:after {
+        .tabellone {
+            display: flex;
+            flex-flow: column nowrap;
+            margin: auto;
+            width: 100%;
+        }
+
+        .giocatori,
+        .timer {
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: space-between;
+        }
+
+        .giocatoreA {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            margin: -90px 4% 0 4%;
+            font-size: 108px;
+            width: 420px;
+        }
+        .giocatoreB {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            margin: -90px 4% 0 4%;
+            font-size: 108px;
+            width: 420px;
+        }
+
+        .punteggio {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: -380px 4% 0 4%;
+            font-size: 350px;
+        }
+
+        .orologio {
+            margin: 100px 0 0 0;
+        }
+
+        .logo {
+            margin-top: 20px;
+        }
+
+        .start {
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: center;
+            margin: 40px 0 0 0;
+        }
+
+        .base-timer {
+            position: relative;
+            width: 300px;
+            height: 300px;
+        }
+
+        .base-timer__svg {
+            transform: scaleX(-1);
+        }
+
+        .base-timer__circle {
+            fill: none;
+            stroke: none;
+        }
+
+        .base-timer__path-elapsed {
+            stroke-width: 7px;
+            stroke: grey;
+        }
+
+        .base-timer__path-remaining {
+            stroke-width: 7px;
+            stroke-linecap: round;
+            transform: rotate(90deg);
+            transform-origin: center;
+            transition: 1s linear all;
+            fill-rule: nonzero;
+            stroke: currentColor;
+        }
+
+        .base-timer__path-remaining.green {
+            color: #fa7623;
+        }
+
+        .base-timer__path-remaining.orange {
+            color: #fa7623;
+        }
+
+        .base-timer__path-remaining.red {
+            color: red;
+        }
+
+        .base-timer__label {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            top: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+        }
+
+        @import url('https://fonts.googleapis.com/css?family=Amatic+SC');
+
+        .button_container {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 30%;
+        }
+
+        .description,
+        .link {
+            font-family: 'Amatic SC', cursive;
+            text-align: center;
+        }
+
+        .description {
+            font-size: 35px;
+        }
+
+        .btn {
+            border: none;
+            display: block;
+            text-align: center;
+            cursor: pointer;
+            text-transform: uppercase;
+            outline: none;
+            overflow: hidden;
+            position: relative;
+            color: #fff;
+            font-weight: 700;
+            font-size: 15px;
+            background-color: #222;
+            padding: 17px 60px;
+            margin: 0 auto;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.20);
+        }
+
+        .btn span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn:after {
             content: "";
             position: absolute;
-            width: 0;
-            height: 0;
-            opacity: 0;
-            box-sizing: border-box;
-        }
-
-        a:before {
-            bottom: 0;
             left: 0;
-            border-left: 1px solid white;
-            border-top: 1px solid white;
-            transition: 0s ease opacity .8s, .2s ease width .4s, .2s ease height .6s;
-        }
-
-        a:after {
             top: 0;
-            right: 0;
-            border-right: 1px solid white;
-            border-bottom: 1px solid white;
-            transition: 0s ease opacity .4s, .2s ease width, .2s ease height .2s;
+            height: 490%;
+            width: 140%;
+            background: red;
+            -webkit-transition: all .5s ease-in-out;
+            transition: all .5s ease-in-out;
+            -webkit-transform: translateX(-98%) translateY(-25%) rotate(45deg);
+            transform: translateX(-98%) translateY(-25%) rotate(45deg);
         }
 
-        a:hover:before,
-        a:hover:after {
-            height: 100%;
-            width: 100%;
-            opacity: 1;
+        .btn:hover:after {
+            -webkit-transform: translateX(-9%) translateY(-25%) rotate(45deg);
+            transform: translateX(-9%) translateY(-25%) rotate(45deg);
         }
 
-        a:hover:before {
-            transition: 0s ease opacity 0s, .2s ease height, .2s ease width .2s;
+        .link {
+            font-size: 20px;
+            margin-top: 30px;
         }
 
-        a:hover:after {
-            transition: 0s ease opacity .4s, .2s ease height .4s, .2s ease width .6s;
-        }
-
-        a:hover {
-            background: rgba(255, 255, 255, .2);
+        .link a {
+            color: #000;
+            font-size: 25px;
         }
     </style>
 </head>
 
 <body>
-
-    <center>
-        <img src="https://www.maginteractive.com/files/pages/37/982622/dt/Ruzzle_Logo_2015.png">
-
-
-
-    </center>
-
-    <a href="/">Button</a>
-    <br>
-    <input type="button" value="START" onclick="startGame()"><br>
-    <input type="text" id="Player1" readonly>Player1<br>
-    <input type="text" id="Player2" readonly>Player2
-
+    <div class="tabellone">
+        <div class="giocatori">
+            <div class="giocatoreA p1" id="g1" >Giocatore 1</div>
+            <div class="logo"><img src="https://www.maginteractive.com/files/pages/37/982622/dt/Ruzzle_Logo_2015.png">
+            </div>
+            <div class="giocatoreB p2" id="g2" >Giocatore 2</div>
+        </div>
+        <div class="timer">
+            <div class="punteggio pP1">00</div>
+            <div class="orologio" id="app">ciao</div>
+            <div class="punteggio pP2">00</div>
+        </div>
+        <div class="start"><button class="btn" onclick="startGame()"><span>START</span></button></div>
+    </div>
 
 
     <script>
-
-        let ws = new WebSocket("ws://localhost:3002");
+        let ws = new WebSocket("ws://172.22.194.128:3002");             //impostare ogni volta indirizzo ip dispostivo server 
         let ServerID = null;
         let cont = 0;
-
 
         ws.onmessage = message => {
             const response = JSON.parse(message.data);
@@ -107,20 +232,21 @@
                 ws.send(JSON.stringify(payLoad));
             }
             if (response.method === "addUtente") {
-                
-                if (cont === 0) {
-                    document.getElementById("Player1").value = response.nomeUtente;
-                }
-                cont = cont + 1;
-                if (cont === 2) {
-                    document.getElementById("Player2").value = response.nomeUtente;
-                }
-
+                //settare i nomi ai titoli
+                if(cont < 2){
+                    if(cont === 0){
+                        document.getElementById("g1").innerHTML = response.nomeUtente;
+                        console.log("[SERVER] utente aggiunto")
+                    }else if(cont === 1){
+                        document.getElementById("g2").innerHTML = response.nomeUtente;
+                        console.log("[SERVER] utente aggiunto")
+                    }
+                    cont = cont+1;
+                }else{
+                    console.log("[SERVER] lobby piena")
+                }  
             }
-
         }
-
-
         function startGame() {
             const payLoad = {
                 "method": "go",
@@ -128,6 +254,120 @@
                 "clientID": ServerID
             }
             ws.send(JSON.stringify(payLoad));
+            startTimer();
+        }
+
+
+        const FULL_DASH_ARRAY = 283;
+        const WARNING_THRESHOLD = 10;
+        const ALERT_THRESHOLD = 5;
+
+        const COLOR_CODES = {
+            info: {
+                color: "green"
+            },
+            warning: {
+                color: "orange",
+                threshold: WARNING_THRESHOLD
+            },
+            alert: {
+                color: "red",
+                threshold: ALERT_THRESHOLD
+            }
+        };
+
+        const TIME_LIMIT = 120;
+        let timePassed = 0;
+        let timeLeft = TIME_LIMIT;
+        let timerInterval = null;
+        let remainingPathColor = COLOR_CODES.info.color;
+
+        document.getElementById("app").innerHTML = `
+<div class="base-timer">
+  <svg class="base-timer__svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <g class="base-timer__circle">
+      <circle class="base-timer__path-elapsed" cx="50" cy="50" r="45"></circle>
+      <path
+        id="base-timer-path-remaining"
+        stroke-dasharray="283"
+        class="base-timer__path-remaining ${remainingPathColor}"
+        d="
+          M 50, 50
+          m -45, 0
+          a 45,45 0 1,0 90,0
+          a 45,45 0 1,0 -90,0
+        "
+      ></path>
+    </g>
+  </svg>
+  <span id="base-timer-label" class="base-timer__label">${formatTime(
+            timeLeft
+        )}</span>
+</div>
+`;
+
+        function onTimesUp() {
+            clearInterval(timerInterval);
+        }
+
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                timePassed = timePassed += 1;
+                timeLeft = TIME_LIMIT - timePassed;
+                document.getElementById("base-timer-label").innerHTML = formatTime(
+                    timeLeft
+                );
+                setCircleDasharray();
+                setRemainingPathColor(timeLeft);
+
+                if (timeLeft === 0) {
+                    onTimesUp();
+                }
+            }, 1000);
+        }
+
+        function formatTime(time) {
+            const minutes = Math.floor(time / 60);
+            let seconds = time % 60;
+
+            if (seconds < 10) {
+                seconds = `0${seconds}`;
+            }
+
+            return `${minutes}:${seconds}`;
+        }
+
+        function setRemainingPathColor(timeLeft) {
+            const { alert, warning, info } = COLOR_CODES;
+            if (timeLeft <= alert.threshold) {
+                document
+                    .getElementById("base-timer-path-remaining")
+                    .classList.remove(warning.color);
+                document
+                    .getElementById("base-timer-path-remaining")
+                    .classList.add(alert.color);
+            } else if (timeLeft <= warning.threshold) {
+                document
+                    .getElementById("base-timer-path-remaining")
+                    .classList.remove(info.color);
+                document
+                    .getElementById("base-timer-path-remaining")
+                    .classList.add(warning.color);
+            }
+        }
+
+        function calculateTimeFraction() {
+            const rawTimeFraction = timeLeft / TIME_LIMIT;
+            return rawTimeFraction - (1 / TIME_LIMIT) * (1 - rawTimeFraction);
+        }
+
+        function setCircleDasharray() {
+            const circleDasharray = `${(
+                calculateTimeFraction() * FULL_DASH_ARRAY
+            ).toFixed(0)} 283`;
+            document
+                .getElementById("base-timer-path-remaining")
+                .setAttribute("stroke-dasharray", circleDasharray);
         }
     </script>
 </body>
