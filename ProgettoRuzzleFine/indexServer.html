@@ -39,6 +39,7 @@
             font-size: 108px;
             width: 420px;
         }
+
         .giocatoreB {
             display: flex;
             justify-content: flex-end;
@@ -52,16 +53,23 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            margin: -380px 4% 0 4%;
+            margin: -200px 4% 0 4%;
             font-size: 350px;
+            width: 300px;
         }
 
         .orologio {
+            visibility: visible;
             margin: 100px 0 0 0;
+            font-size: 150px;
         }
 
         .logo {
             margin-top: 20px;
+        }
+
+        .logo img {
+            filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.20));
         }
 
         .start {
@@ -69,78 +77,6 @@
             flex-flow: row nowrap;
             justify-content: center;
             margin: 40px 0 0 0;
-        }
-
-        .base-timer {
-            position: relative;
-            width: 300px;
-            height: 300px;
-        }
-
-        .base-timer__svg {
-            transform: scaleX(-1);
-        }
-
-        .base-timer__circle {
-            fill: none;
-            stroke: none;
-        }
-
-        .base-timer__path-elapsed {
-            stroke-width: 7px;
-            stroke: grey;
-        }
-
-        .base-timer__path-remaining {
-            stroke-width: 7px;
-            stroke-linecap: round;
-            transform: rotate(90deg);
-            transform-origin: center;
-            transition: 1s linear all;
-            fill-rule: nonzero;
-            stroke: currentColor;
-        }
-
-        .base-timer__path-remaining.green {
-            color: #fa7623;
-        }
-
-        .base-timer__path-remaining.orange {
-            color: #fa7623;
-        }
-
-        .base-timer__path-remaining.red {
-            color: red;
-        }
-
-        .base-timer__label {
-            position: absolute;
-            width: 300px;
-            height: 300px;
-            top: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 48px;
-        }
-
-        @import url('https://fonts.googleapis.com/css?family=Amatic+SC');
-
-        .button_container {
-            position: absolute;
-            left: 0;
-            right: 0;
-            top: 30%;
-        }
-
-        .description,
-        .link {
-            font-family: 'Amatic SC', cursive;
-            text-align: center;
-        }
-
-        .description {
-            font-size: 35px;
         }
 
         .btn {
@@ -155,10 +91,11 @@
             color: #fff;
             font-weight: 700;
             font-size: 15px;
-            background-color: #222;
+            background-color: rgb(34, 34, 34);
             padding: 17px 60px;
             margin: 0 auto;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.20);
+            margin-bottom: 50px;
         }
 
         .btn span {
@@ -173,51 +110,118 @@
             top: 0;
             height: 490%;
             width: 140%;
-            background: red;
+            background: #3a83bb;
             -webkit-transition: all .5s ease-in-out;
             transition: all .5s ease-in-out;
             -webkit-transform: translateX(-98%) translateY(-25%) rotate(45deg);
             transform: translateX(-98%) translateY(-25%) rotate(45deg);
         }
 
-        .btn:hover:after {
-            -webkit-transform: translateX(-9%) translateY(-25%) rotate(45deg);
-            transform: translateX(-9%) translateY(-25%) rotate(45deg);
+
+        .button-34 {
+            visibility: visible;
+            -webkit-text-stroke-width: 3px;
+            -webkit-text-stroke-color: #ac3e02;
+            background: #ff6f00;
+            border-radius: 999px;
+            box-shadow: #ac4100 0 10px 20px -10px;
+            box-sizing: border-box;
+            color: #FFFFFF;
+            cursor: pointer;
+            font-family: Inter, Helvetica, "Apple Color Emoji", "Segoe UI Emoji", NotoColorEmoji, "Noto Color Emoji", "Segoe UI Symbol", "Android Emoji", EmojiSymbols, -apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", sans-serif;
+            font-size: 50px;
+            font-weight: bold;
+            opacity: 1;
+            outline: 0 solid transparent;
+            padding: 8px 18px;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+            width: 300;
+            height: 300;
+            word-break: break-word;
+            border: 0;
         }
 
-        .link {
-            font-size: 20px;
-            margin-top: 30px;
+        .Round {
+            margin-top: 40px;
+            visibility: hidden;
+            display: flex;
+            flex-flow: row nowrap;
+            align-items: center;
+            justify-content: center;
+            background-color: #ff6f00;
+            font-size: 35px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.20);
+            margin: 10px;
         }
 
-        .link a {
-            color: #000;
-            font-size: 25px;
+
+        .punteggioG1round1 {
+            display: flex;
+            background-color: lightgreen;
+            width: 50px;
+            height: 50px;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+        }
+
+        .punteggioG2round1 {
+            display: flex;
+            background-color: lightgreen;
+            width: 50px;
+            height: 50px;
+            align-items: center;
+            justify-content: center;
+            margin-left: 20px;
         }
     </style>
 </head>
 
 <body>
+
     <div class="tabellone">
         <div class="giocatori">
-            <div class="giocatoreA p1" id="g1" >Giocatore 1</div>
+            <div class="giocatoreA p1" id="g1">Giocatore 1</div>
             <div class="logo"><img src="https://www.maginteractive.com/files/pages/37/982622/dt/Ruzzle_Logo_2015.png">
             </div>
-            <div class="giocatoreB p2" id="g2" >Giocatore 2</div>
+            <div class="giocatoreB p2" id="g2">Giocatore 2</div>
         </div>
         <div class="timer">
-            <div class="punteggio pP1">00</div>
-            <div class="orologio" id="app">ciao</div>
-            <div class="punteggio pP2">00</div>
+            <div class="punteggio pP1" id="puntG1">00</div>
+            <div class="orologio" id="idTimer"><span id="time">02:00</span></div>
+            <div class="punteggio pP2" id="puntG2">00</div>
         </div>
-        <div class="start"><button class="btn" onclick="startGame()"><span>START</span></button></div>
+        <div class="start"><button class="button-34" onclick="startGame()" id="btnStart"><span>START</span></button>
+        </div>
+    </div>
+
+
+
+    <div class="Round" id="round1">
+        <div id="round1G1" class="punteggioG1round1">00</div>
+        <div>ROUND 1</div>
+        <div id="round1G2" class="punteggioG2round1">00</div>
+    </div>
+
+    <div class="Round" id="round2">
+        <div id="round2G1" class="punteggioG1round1">00</div>
+        <div>ROUND 2</div>
+        <div id="round2G2" class="punteggioG2round1">00</div>
+    </div>
+    <div class="Round" id="total">
+        <div id="tot1" class="punteggioG1round1">00</div>
+        <div>TOTALE</div>
+        <div id="tot2" class="punteggioG2round1">00</div>
     </div>
 
 
     <script>
-        let ws = new WebSocket("ws://172.22.194.128:3002");             //impostare ogni volta indirizzo ip dispostivo server 
+        let ws = new WebSocket("ws://localhost:3002");             //impostare ogni volta indirizzo ip dispostivo server 
         let ServerID = null;
         let cont = 0;
+        const vettNomiClients = [];
 
         ws.onmessage = message => {
             const response = JSON.parse(message.data);
@@ -233,141 +237,142 @@
             }
             if (response.method === "addUtente") {
                 //settare i nomi ai titoli
-                if(cont < 2){
-                    if(cont === 0){
+                if (cont < 2) {
+                    if (cont === 0) {
                         document.getElementById("g1").innerHTML = response.nomeUtente;
-                        console.log("[SERVER] utente aggiunto")
-                    }else if(cont === 1){
+                        const payLoad = {
+                            "nomeGiocatore": response.nomeUtente,
+                            "posizione": "0"
+                        }
+                        vettNomiClients.push(payLoad);
+                        console.log("[SERVER] utente aggiunto");
+                    } else if (cont === 1) {
                         document.getElementById("g2").innerHTML = response.nomeUtente;
-                        console.log("[SERVER] utente aggiunto")
+                        const payLoad = {
+                            "nomeGiocatore": response.nomeUtente,
+                            "posizione": "1"
+                        }
+                        vettNomiClients.push(payLoad);
+                        console.log("[SERVER] utente aggiunto");
                     }
-                    cont = cont+1;
-                }else{
+                    cont = cont + 1;
+                } else {
                     console.log("[SERVER] lobby piena")
-                }  
+                }
+            }
+            if (response.method === "incPuntiA") {
+                //settare i punti in base ai nomi
+                for (let i = 0; i < vettNomiClients.length; i++) {
+                    if (response.nome === vettNomiClients[i].nomeGiocatore) {
+                        if (vettNomiClients[i].posizione === "0") {
+                            document.getElementById("puntG1").innerHTML = response.punto;
+                            console.log("entrato");
+                        }
+                        if (vettNomiClients[i].posizione === "1") {
+                            document.getElementById("puntG2").innerHTML = response.punto;
+                            console.log("entrato1");
+                        }
+                    }
+                }
+
             }
         }
+
+
+        function startTimer(duration, display) {
+            var timer = duration, minutes, seconds;
+            var tmp = timer;
+            setInterval(function () {
+                if (timer > 0) {
+                    --timer;
+                    minutes = parseInt(timer / 60, 10)
+                    seconds = parseInt(timer % 60, 10);
+                    minutes = minutes < 10 ? "0" + minutes : minutes;
+                    seconds = seconds < 10 ? "0" + seconds : seconds;
+                    display.textContent = minutes + ":" + seconds;
+                    if (timer == 15) {
+                        const payLoad = {
+                            "method": "mancano15Client",
+                            "type": "mancano 15 secondi"
+                        }
+                        ws.send(JSON.stringify(payLoad));
+                    }
+                    if (timer == 0) {
+                        display.textContent = "00" + ":" + "00";
+                        timer = 0;
+
+                        const payLoad = {
+                            "method": "finePartita",
+                            "type": "patita finita"
+                        }
+                        ws.send(JSON.stringify(payLoad));
+                    }
+                    if (timer <= 120) {
+                        const btn = document.getElementById("btnStart");
+                        btn.style.visibility = "hidden";
+                        if (timer == 0) {
+                            btn.style.visibility = "visible";
+                        }
+                    }
+                }
+            }, 1000);
+        }
+
+        var contRound = 0;
         function startGame() {
+            contRound = contRound + 1;
             const payLoad = {
                 "method": "go",
                 "type": "server",
                 "clientID": ServerID
             }
             ws.send(JSON.stringify(payLoad));
-            startTimer();
-        }
 
-
-        const FULL_DASH_ARRAY = 283;
-        const WARNING_THRESHOLD = 10;
-        const ALERT_THRESHOLD = 5;
-
-        const COLOR_CODES = {
-            info: {
-                color: "green"
-            },
-            warning: {
-                color: "orange",
-                threshold: WARNING_THRESHOLD
-            },
-            alert: {
-                color: "red",
-                threshold: ALERT_THRESHOLD
-            }
-        };
-
-        const TIME_LIMIT = 120;
-        let timePassed = 0;
-        let timeLeft = TIME_LIMIT;
-        let timerInterval = null;
-        let remainingPathColor = COLOR_CODES.info.color;
-
-        document.getElementById("app").innerHTML = `
-<div class="base-timer">
-  <svg class="base-timer__svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-    <g class="base-timer__circle">
-      <circle class="base-timer__path-elapsed" cx="50" cy="50" r="45"></circle>
-      <path
-        id="base-timer-path-remaining"
-        stroke-dasharray="283"
-        class="base-timer__path-remaining ${remainingPathColor}"
-        d="
-          M 50, 50
-          m -45, 0
-          a 45,45 0 1,0 90,0
-          a 45,45 0 1,0 -90,0
-        "
-      ></path>
-    </g>
-  </svg>
-  <span id="base-timer-label" class="base-timer__label">${formatTime(
-            timeLeft
-        )}</span>
-</div>
-`;
-
-        function onTimesUp() {
-            clearInterval(timerInterval);
-        }
-
-        function startTimer() {
-            timerInterval = setInterval(() => {
-                timePassed = timePassed += 1;
-                timeLeft = TIME_LIMIT - timePassed;
-                document.getElementById("base-timer-label").innerHTML = formatTime(
-                    timeLeft
-                );
-                setCircleDasharray();
-                setRemainingPathColor(timeLeft);
-
-                if (timeLeft === 0) {
-                    onTimesUp();
+            var dueminuti = 20 * 1,
+                display = document.querySelector('#time');
+            startTimer(dueminuti, display);
+            if (contRound == 2 || contRound == 3) {
+                const punteggio1 = document.getElementById("puntG1").textContent;
+                const punteggio2 = document.getElementById("puntG2").textContent;
+                roundTabella(contRound, punteggio1, punteggio2);
+                const payLoad = {
+                    "method": "resetPuntiRound",
+                    "type": "resetpunti"
                 }
-            }, 1000);
-        }
-
-        function formatTime(time) {
-            const minutes = Math.floor(time / 60);
-            let seconds = time % 60;
-
-            if (seconds < 10) {
-                seconds = `0${seconds}`;
-            }
-
-            return `${minutes}:${seconds}`;
-        }
-
-        function setRemainingPathColor(timeLeft) {
-            const { alert, warning, info } = COLOR_CODES;
-            if (timeLeft <= alert.threshold) {
-                document
-                    .getElementById("base-timer-path-remaining")
-                    .classList.remove(warning.color);
-                document
-                    .getElementById("base-timer-path-remaining")
-                    .classList.add(alert.color);
-            } else if (timeLeft <= warning.threshold) {
-                document
-                    .getElementById("base-timer-path-remaining")
-                    .classList.remove(info.color);
-                document
-                    .getElementById("base-timer-path-remaining")
-                    .classList.add(warning.color);
+                ws.send(JSON.stringify(payLoad));
+                document.getElementById("puntG1").innerHTML = "00";
+                document.getElementById("puntG2").innerHTML = "00";
             }
         }
 
-        function calculateTimeFraction() {
-            const rawTimeFraction = timeLeft / TIME_LIMIT;
-            return rawTimeFraction - (1 / TIME_LIMIT) * (1 - rawTimeFraction);
-        }
+        function roundTabella(cont, punteggio1, punteggio2) {
+            if (cont == 2) {
+                document.getElementById("round1G1").innerHTML = punteggio1;
+                document.getElementById("round1G2").innerHTML = punteggio2;
+                document.getElementById("round1").style.visibility = "visible";
+            }
+            else if (cont == 3) {
+                document.getElementById("round2G1").innerHTML = punteggio1;
+                document.getElementById("round2G2").innerHTML = punteggio2;
+                document.getElementById("round2").style.visibility = "visible";
+                document.getElementById("total").style.visibility = "visible";
+                document.getElementById("idTimer").style.visibility = "hidden";
+                document.getElementById("btnStart").style.display = "none";
 
-        function setCircleDasharray() {
-            const circleDasharray = `${(
-                calculateTimeFraction() * FULL_DASH_ARRAY
-            ).toFixed(0)} 283`;
-            document
-                .getElementById("base-timer-path-remaining")
-                .setAttribute("stroke-dasharray", circleDasharray);
+                let ris1 = parseInt(document.getElementById("round1G1").innerHTML);
+                let ris2 = parseInt(document.getElementById("round2G1").innerHTML);
+                document.getElementById("tot1").innerHTML = ris1 + ris2;
+                let ris3 = parseInt(document.getElementById("round1G2").innerHTML);
+                let ris4 = parseInt(document.getElementById("round2G2").innerHTML);
+                document.getElementById("tot2").innerHTML = ris3 + ris4;
+                if (ris1 + ris2 > ris3 + ris4) {
+                    document.getElementById("tot1").style.backgroundColor = "#FFD700";
+                    document.getElementById("tot2").style.backgroundColor = "red";
+                } else {
+                    document.getElementById("tot2").style.backgroundColor = "#FFD700";
+                    document.getElementById("tot1").style.backgroundColor = "red";
+                }
+            }
         }
     </script>
 </body>
